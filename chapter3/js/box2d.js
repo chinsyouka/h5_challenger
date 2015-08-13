@@ -19,11 +19,25 @@ var Box2D = {
 		var allowSleep = true; // 允许静止的物体进入休眠模式，不参与物理仿真计算
 		world = new b2World(gravity,allowSleep);
 		
-		
-		
+		Box2D.createFloor();
 	},
 	
 	createFloor : function(){
+		var bodyDef = new b2BodyDef;
+		bodyDef.type = b2BodyDef.b2_staticBody;
+		bodyDef.position.x = 640/2/scale;
+		bodyDef.position.y = 450/scale;
+		
+		var fixtureDef = new b2FixtureDef;
+		fixtureDef.density = 1.0; // 密度
+		fixtureDef.friction = 0.5; // 摩擦系数
+		fixtureDef.restitution = 0.2; // 反弹系数
+		
+		fixtureDef.shape = new b2PolygonShape;
+		fixtureDef.shape.SetAsBox(320/scale,10/scale); // 矩形圆心在其中心处，此矩形为640x20
+		
+		var body = world.CreateBody(bodyDef);
+		var fixture = body.CreateFixture(fixtureDef);
 		
 		
 	}
